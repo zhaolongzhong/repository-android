@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class RepositoryAdapter extends RecyclerView.Adapter<RepositoryAdapter.ViewHolder> {
 
-    private List<User> users = new ArrayList<>();
+    private List<Repository> repositories = new ArrayList<>();
 
-    public void setUsersNotifyDataChanged(List<User> users) {
-        this.users = users;
+    public void setDataNotifyDataChanged(List<Repository> repositories) {
+        this.repositories = repositories;
         notifyDataSetChanged();
     }
 
@@ -28,7 +28,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         // Inflate the custom layout
-        View userCellView = inflater.inflate(R.layout.user_cell, parent, false);
+        View userCellView = inflater.inflate(R.layout.repository_cell, parent, false);
 
         // Return a new holder instance
         return new ViewHolder(userCellView);
@@ -36,17 +36,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        User user = users.get(position);
+        Repository repository = repositories.get(position);
 
         // Set item views based on your views and data model
-        TextView textView = holder.nameTextView;
-        textView.setText(user.getLogin());
+        TextView nameTextView = holder.nameTextView;
+        nameTextView.setText(repository.getName());
+        TextView descriptionTextView = holder.descriptionTextView;
+        descriptionTextView.setText(repository.getDescription());
     }
 
     // Returns the total count of items in the list
     @Override
     public int getItemCount() {
-        return users.size();
+        return repositories.size();
     }
 
     // Provide a direct reference to each of the views within a data item
@@ -55,6 +57,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         public TextView nameTextView;
+        public TextView descriptionTextView;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -63,7 +66,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            nameTextView = (TextView) itemView.findViewById(R.id.title_text_view);
+            nameTextView = (TextView) itemView.findViewById(R.id.name_text_view);
+            descriptionTextView = (TextView) itemView.findViewById(R.id.description_text_view);
         }
     }
 }
